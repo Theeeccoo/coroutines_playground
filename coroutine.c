@@ -141,7 +141,7 @@ void coroutine_go(void (*f)(void*), void *arg)
     void **rsp = (void**)((char*)stack_base + STACK_CAPACITY);
     // Pushing to stack the address to where the coroutine must return whenever it has finished
     *(--rsp) = coroutine_finish;
-    // Pushing to stack the coroutine's return address ("f") and it's registers (following setjmp)
+    // Pushing to stack the coroutine's return address ("f") and it's registers (following musl's setjmp)
     *(--rsp) = f;   // push ret address
     *(--rsp) = arg; // push rdi (Coroutines might have arguments)
     *(--rsp) = 0;   // push rbx
